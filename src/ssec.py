@@ -1,149 +1,35 @@
-#!/bin/python
-# Series Section Transformers
-# From ARRL Antenna Book, 23rd Edition ©2015
-# Project Crew™ 5/3/2026
-
-from math import pi, tau, sqrt, atan, fabs, floor, ceil
-
-# SWR calc
-def swr(Rl: float, Xl: float, Z0: float) -> float:
-    R:   float = Rl / Z0
-    X:   float = fabs(Xl) / Z0
-    B:   float = ( (X * X + 1) / R ) + R
-    return( ( B + sqrt(B * B - 4) ) / 2 )
-
-# input
-print()
-while True:
-    value = input('  Frequency (MHz)......................: ')
-    try:
-        f: float = float(value)
-    except ValueError:
-        print('  Valid number, please')
-        continue
-    if 0.135 <= f <= 1000.0:
-        break
-    else:
-        print('  Valid range, please: 0.135-1,000MHz')
-
-while True:
-    value = input('  Load real (\u2126)........................: ')
-    try:
-        Rl: float = float(value)
-    except ValueError:
-        print('  Valid number, please')
-        continue
-    if 1.0 <= Rl <= 10000.0:
-        break
-    else:
-        print('  Valid range, please: 1-10,000')
-
-while True:
-    value = input('  Load imaginary (\u00b1j)..................: ')
-    try:
-        Xl: float = float(value)
-    except ValueError:
-        print('  Valid number, please')
-        continue
-    if -10000.0 <= Xl <= 10000.0:
-        break
-    else:
-        print('  Valid range, please: \u00b110,000')
-
-while True:
-    value = input('  Line impedance (\u2126)...................: ')
-    try:
-        Z0: float = float(value)
-    except ValueError:
-        print('  Valid number, please')
-        continue
-    if 25.0 <= Z0 <= 600.0:
-        break
-    else:
-        print('  Valid range, please: 25-600')
-
-while True:
-    value = input('  Line velocity factor (VF)............: ')
-    try:
-        v0: float = float(value)
-    except ValueError:
-        print('  Valid number, please')
-        continue
-    if 0.5 <= v0 <= 1.0:
-        break
-    else:
-        print('  Valid range, please: 0.5-1.0')
-
-SWR: float =   swr(Rl, Xl, Z0)
-Z1a: float =  ceil( Z0 * sqrt(SWR) )
-Z1b: float = floor( Z0 / sqrt(SWR) )
-
-print('  SWR = ', round(SWR, 3), ', so matching section has to be ', Z1a, '\u2126 or above or ', Z1b, '\u2126 and lower.', sep='')
-
-while True:
-    value = input('  Matching section impedance (\u2126).......: ')
-    try:
-        Z1: float = float(value)
-    except ValueError:
-        print('  Valid number, please')
-        continue
-    if 25.0 <= Z1 <= 600.0:
-        pass
-    else:
-        print('  Valid range, please: 25-600')
-        continue    
-    if Z0 != Z1:
-        pass
-    else:
-        print('  Line and matching section are the same!')
-    if Z1a > Z1 > Z1b:
-        print('  It can\'t be between ', Z1b, ' and ', Z1a, '.', sep='')
-    else:
-        break
-
-while True:
-    value = input('  Matching section velocity factor (VF): ')
-    try:
-        v1: float = float(value)
-    except ValueError:
-        print('  Valid number, please')
-        continue
-    if 0.5 <= v1 <= 1.0:
-        break
-    else:
-        print('  Valid range, please: 0.5-1.0')
-
-# main() {
-# wavelength in meters
-wm: float = 299.792458 / f
-
-# ... the imperial units
-wf: float = 984.0 / f
-
-# VF correction
-m0: float = wm * v0
-m1: float = wm * v1
-f0: float = wf * v0
-f1: float = wf * v1
-
-# SSTrafo calc
-n:  float = Z1 / Z0
-r:  float = Rl / Z0
-x:  float = Xl / Z0
-# print('n =', n, 'r =', r, 'x =', x)
-
-B:  float = sqrt( ( (r - 1) ** 2 + x * x ) / ( r * (n - 1 / n) ** 2 - (r - 1) ** 2 - x * x ) )
-L2: float = atan(fabs(B)) / tau
-A:  float = ( (n - r / n) * B + x ) / ( r + x * n * B - 1 )
-if A > 0:
-    L1: float = atan(A) / tau
-else:
-    L1: float = ( atan(A) + pi ) / tau  # add 180° if A is negative
-
-# output
-print('\n    \u21132 is length of matching section.  \u21131 is length of line from the matching')
-print('  section to the load.\n')
-print('    metric:')
-print('  \u21131 = {:8.3f}m,  \u21132 = {:8.3f}m'.format(L1 * m0, L2 * m1), sep='', end='\n\n')
-print('    imperial:')
-print('  \u21131 = {:7.2f}ft,  \u21132 = {:7.2f}ft'.format(L1 * f0, L2 * f1), sep='', end='\n\n')
+00000000: 23212f 62696e 2f7079 74686f 6e0a23 20  #!/bin/python.#
+00000010: 537161 726520 6f6620 646973 74616e 63  Sqare of distanc
+00000020: 652065 6e6572 677920 66616c 6c6f66 66  e energy falloff
+00000030: 206f66 206973 6f7472 6f7069 632070 61   of isotropic pa
+00000040: 747465 726e20 726164 696174 6f720a 0a  ttern radiator..
+00000050: 66726f 6d2067 65746b 657920 696d70 6f  from getkey impo
+00000060: 727420 676574 6b6579 0a0a70 72696e 74  rt getkey..print
+00000070: 28290a 0a7768 696c65 205472 75653a 0a  ()..while True:.
+00000080: 202020 207472 793a0a 202020 202020 20      try:.
+00000090: 206469 737461 6e6365 203d20 666c6f 61   distance = floa
+000000a0: 742869 6e7075 742827 206469 737461 6e  t(input(' distan
+000000b0: 636520 696e20 6d6574 657273 3f2027 29  ce in meters? ')
+000000c0: 290a20 202020 202020 206272 65616b 0a  ).        break.
+000000d0: 202020 206578 636570 742056 616c75 65      except Value
+000000e0: 457272 6f723a 0a2020 202020 202020 70  Error:.        p
+000000f0: 72696e 742827 455252 4f523a 204920 6e  rint('ERROR: I n
+00000100: 656564 206120 726561 6c206e 756d62 65  eed a real numbe
+00000110: 722e27 290a0a 776869 6c6520 547275 65  r.')..while True
+00000120: 3a0a20 202020 747279 3a0a20 202020 20  :.    try:.
+00000130: 202020 696e74 656e73 697479 203d20 66     intensity = f
+00000140: 6c6f61 742869 6e7075 742827 20696e 74  loat(input(' int
+00000150: 656e73 697479 202069 6e2020 6c7578 3f  ensity  in  lux?
+00000160: 202729 290a20 202020 202020 206272 65   ')).        bre
+00000170: 616b0a 202020 206578 636570 742056 61  ak.    except Va
+00000180: 6c7565 457272 6f723a 0a2020 202020 20  lueError:.
+00000190: 202070 72696e 742827 455252 4f523a 20    print('ERROR:
+000001a0: 49206e 656564 206120 726561 6c206e 75  I need a real nu
+000001b0: 6d6265 722e27 290a0a 707269 6e7428 27  mber.')..print('
+000001c0: 5c6e20 6c756d 656e73 206174 20736f 75  \n lumens at sou
+000001d0: 726365 3a272c 20656e 643d27 202729 0a  rce:', end=' ').
+000001e0: 707269 6e7428 646973 74616e 636520 2a  print(distance *
+000001f0: 2a2032 2e3020 2a2069 6e7465 6e7369 74  * 2.0 * intensit
+00000200: 792c20 656e64 3d2727 2c2066 6c7573 68  y, end='', flush
+00000210: 3d5472 756529 0a6765 746b65 792829 0a  =True).getkey().
+00000220: 707269 6e7428 290a                     print().
