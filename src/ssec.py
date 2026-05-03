@@ -91,7 +91,7 @@ while True:
         pass
     else:
         print('  Valid range, please: 25-600')
-        continue    
+        continue
     if Z0 != Z1:
         pass
     else:
