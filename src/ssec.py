@@ -13,7 +13,8 @@ def swr(Rl: float, Xl: float, Z0: float) -> float:
     return( ( B + sqrt(B * B - 4) ) / 2 )
 
 # input
-print()
+print('\n  Series Section Transformers:\n')
+
 while True:
     value = input('  Frequency (MHz)......................: ')
     try:

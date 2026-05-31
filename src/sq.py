@@ -3,7 +3,7 @@
 
 from getkey import getkey
 
-print()
+print('\n Energy as the square of distance:\n')
 
 while True:
     try:
