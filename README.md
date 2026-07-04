@@ -6,6 +6,7 @@ Sometimes I use python as a scratch pad.
 
 ## what
 ```
+ half.py  -medicine elimination half-life explore
  ssec.py  -series section transformer
  sq.py    -fall as square of distance
 ```
