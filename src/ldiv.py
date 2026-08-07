@@ -5,6 +5,7 @@
 
 sub2  = '\u2082'
 sub10 = '\u2081\u2080'
+DivisionByZeroException: int = 1
 
 def error(Error) :
     if Error == 1 :
@@ -13,15 +14,14 @@ def error(Error) :
 
 def divide_unsigned(N: int, D: int):
     print(' N = ', format(N, 'b'), sub2, ' (', N, sub10, ') and D = ', format(D, 'b'), sub2, ' (', D, sub10, '), ', sep='', end='')
-    DivisionByZeroException: int = 1
-    n: int  = 0
+    n:  int = 0
     ns: int = N
-    while ns:
+    while ns:           # Find highest set bit
         ns >>= 1
         n   += 1
     print(' #bits n =', n, end='\n\n')
-    Q: int = 0          # Initialize quotient and remainder to zero
-    R: int = 0
+    Q:  int = 0         # Initialize quotient and remainder to zero
+    R:  int = 0
     print(' Step 1:  R =', R, 'and Q =', Q)
     if D == 0 : error(DivisionByZeroException)
     for i in reversed(range(n)):   # Where n is number of bits in N
@@ -33,8 +33,8 @@ def divide_unsigned(N: int, D: int):
         else:
             R &= -2
         print(' Step 4:  R = {0:0{n}b}'.format(R, n=n))
-        # R(0) = N(i)   # Set the least-significant bit of R equal to bit i of the numerator
-        if R >= D:
+        # R(0) = N(i)   # Set the least-significant bit of R equal to
+        if R >= D:      #   bit i of the numerator
             print(' Step 5:  R \u2265 D, statement entered')
             R -= D
             print(' Step 5b: R = {0:0{n}b}'.format(R, n=n))
