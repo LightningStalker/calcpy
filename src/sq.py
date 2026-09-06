@@ -1,5 +1,6 @@
 #!/bin/python
 # Sqare of distance energy falloff of isotropic pattern radiator
+# Project Crew™ 5/3/2026
 
 from getkey import getkey
 

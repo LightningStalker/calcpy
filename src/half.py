@@ -2,7 +2,7 @@
 # Half-life examiner thing
 # Project Crew™ 6/7/2026
 
-from math import log
+from math import log, e
 import matplotlib.pyplot as plt
 from matplotlib import ticker
 import numpy as np
@@ -60,7 +60,7 @@ while True:
 k = log(2) / (halflife / 24)            # elimination constant (in days)
 
 def foelim(t, C0, k):                   # First-order elimination
-    return C0 * np.e ** (-k * t)        #   rate equation
+    return C0 * e ** (-k * t)        #   rate equation
 
 foelim = np.frompyfunc(foelim, 3, 1)
 
@@ -79,7 +79,7 @@ s = foelim(t, C0, k)
 line = ax.plot(t, s, lw=2)
 ax.grid(True)
 annoy = poi / granularity     # y-axis location of point
-ax.annotate("{:.2f} @ 11d".format(s[int(annoy)]), xy=(poi, s[int(annoy)]),
+ax.annotate("{:.2f} @ {}d".format(s[int(annoy)], poi), xy=(poi, s[int(annoy)]),
   xytext=(10, 10), size=16, arrowprops=dict(arrowstyle="-|>",
   connectionstyle="arc3, rad=-0.2"))
 
