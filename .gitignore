@@ -1,1 +1,6 @@
 t
+*.aux
+*.dvi
+*.err
+*.log
+*.pdf

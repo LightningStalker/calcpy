@@ -28,7 +28,7 @@ def LxRosa(h: float, D: float, N: float, dw: float, p: float) -> float:
     kNagaoka: float = W82W(D / h)
     Lsheet:   float = 1e-7 * pi * pi * D * D * N * N * kNagaoka / h
     Rosacorr: float = KMGO(N) + Rosaks90(p / dw, p / D, 0)
-    
+
     return(Lsheet - 2E-7 * pi * D * N * Rosacorr)
 
 def W82W(x: float) -> float:
@@ -44,7 +44,7 @@ def W82W(x: float) -> float:
         k2: float = 24.0  / (3.0 * pi * pi - 16.0)
         w:  float = -0.47 / (0.755 + x) ** 1.44
         p:  float = k0 + 3.437 / x + k2 / (x * x) + w
-        
+
         return(zk * (log(1.0 + 1.0 / zk) + 1.0 / p))
 
 def KMGO(N: float) -> float:
@@ -62,20 +62,20 @@ def Rosaks90(pdw: float, pD: float, fi: float) -> float:
 # Based on Bob Weaver's modified version of Wheeler 82-7
 #  D W Knight, July 2012.  www.g3ynh.info
 
-# pdw = pitch / wire diam , pD = pitch / coil diam, 
+# pdw = pitch / wire diam , pD = pitch / coil diam,
 # fi = internal inductance factor, zero for none, 1 for LF.
     Ddw: float = (1 / pD) / ( 1 / pdw)
     k0:  float = 1 / (log (8 / pi) - 0.5)
     k2:  float = 24 / (3 * pi * pi - 16)
     w:   float = -0.47 / (0.755 + 1 / pD) ** 1.44
     pn:  float = k0 + 3.437 * pD + k2 * pD * pD + w
-    
+
     return(log(1 + pi / (2 * pD)) + 1 / pn - log(8 * Ddw) + 2 - fi * sqrt(1 + (pD / pi) * (pD / pi)) / 4)
 
 def Flpml(q: float) -> float:
 # Calculates internal inductance factor within 160ppM using PACAML formula.
 # see: Practical continuous funcs and formulae for int. Z of cylindrical conductors.
-#  D. W. Knight, Mar. 2010.  www.g3ynh.info 
+#  D. W. Knight, Mar. 2010.  www.g3ynh.info
     if q < 0.0001:
         return(1.0)
     else:
@@ -84,7 +84,7 @@ def Flpml(q: float) -> float:
         z:  float = 0.38691 * q
         zz: float = z ** 1.2652 - z ** -0.39709
         y:  float = -0.198584 / (1 + 0.25741 * zz * zz) ** 2.62343
-        
+
         return(i * (1 - y))
 
 def Lintern(lw: float, d: float, f: float, Kiacs: float, mur: float) -> float:
@@ -99,14 +99,14 @@ def Lintern(lw: float, d: float, f: float, Kiacs: float, mur: float) -> float:
     delta: float = sqrt( rho / ( 4e-7 * pi * pi * f * mur ) )
     q:     float = d / ( delta * sqrt(2) )
     Theta: float = Flpml(q)
-    
+
     return(lw * 5e-8 * mur * Theta)
 
 
 def main() -> int:
     h:      float = N * dw                             # coil length
     Lext:   float = LxRosa(h, D, N, dw, jw) * 1e6      # extern. induct.
-    
+
     # Dskin:  float = sqrt(10.0 * RCu / (4.0 * pi ** 2 * 820.0))  # skin depth
     # Lfact:  float = Flpml(0.9144 / (sqrt(2) * Dskin))     # intern. L factor
     # LlUnit: float = 0.05 * Lfact        # internal L per unit length

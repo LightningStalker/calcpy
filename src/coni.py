@@ -19,6 +19,6 @@ Ro = 88.45                              # outer radius
 
 # Wheeler25/Terman43 in millimeters
 L1 = 5 * pow( (N * R), 2 ) / (1143 * R + 1270 * H)  # Solenoid component
-L2 = 5 * pow( (N * R), 2 ) / (1016 * R + 1397 * W)  # Flat spiral ...
+L2 = 5 * pow( (N * R), 2 ) / (1016 * R + 1397 * W)  # Planar     ...
 print( 'L = {:0.3f}'.format( sqrt( pow(L1 * sin(a), 2) + pow(L2 * cos(a), 2) ) ), '\u00b5H' )
 print( 'N =', sqrt( 1143 * L1 * R + 1270 * H * L1 ) / (sqrt(5) * R) )
