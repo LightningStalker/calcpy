@@ -11,15 +11,17 @@ from math import pi, pow, sqrt, sin, cos, tan, atan
 # units are the millimeters (mm)
 # from center (+) of the wire
 N   = 7.68                              # turns count
-H   = 32.193                            # height
-W   = 64.9                              # from turns start to outer edge
 D   = 176.9                             # outer diameter
+H   = 32.193                            # height
+W   = 64.9                              # from turns start to outer edge...
+                                        #   measure flat to the base
+# compute some values
 Ro  = D / 2                             # outer radius
 Ri  = Ro - W                            # inner radius
 a   = atan(H / Ro)                      # slope angle in radians
 R   = (Ri + Ro) / 2                     # mean radius
-p_v = tan(a) * R / N                    # pitch of winding
-p   = W / N
+# p_v = tan(a) * R / N                    # pitch of winding
+# p   = W / N
 
 # Wheeler28/Terman43 in millimeters
 L1 = 5 * pow( (N * R), 2 ) / (1143 * R + 1270 * H)  # Solenoid component
