@@ -3,7 +3,7 @@
 # Base on work of Tesla coils "community"
 # Project Crew™ 9/6/2026
 
-from math import pi, pow, sqrt, sin, cos, tan, atan
+from math import pow, sqrt, sin, cos, atan  #, pi
 
 # deg2rad = lambda deg: deg * pi / 180.0  # Convert degrees to radians
 
@@ -12,16 +12,16 @@ from math import pi, pow, sqrt, sin, cos, tan, atan
 # from center (+) of the wire
 N   = 7.68                              # turns count
 D   = 176.9                             # outer diameter
-H   = 32.193                            # height
+H   = 23.622                            # height the winding
 W   = 64.9                              # from turns start to outer edge...
                                         #   measure flat to the base
 # compute some values
 Ro  = D / 2                             # outer radius
 Ri  = Ro - W                            # inner radius
-a   = atan(H / Ro)                      # slope angle in radians
+a   = atan(H / W)                       # slope angle in radians
 R   = (Ri + Ro) / 2                     # mean radius
-# p_v = tan(a) * R / N                    # pitch of winding
-# p   = W / N
+# p_v = H / N                             # vertical pitch of winding
+# p   = W / N                             # horizontal ...
 
 # Wheeler28/Terman43 in millimeters
 L1 = 5 * pow( (N * R), 2 ) / (1143 * R + 1270 * H)  # Solenoid component
