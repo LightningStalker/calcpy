@@ -10,6 +10,7 @@ Sometimes I use python as a scratch pad.
  eng.py   -convert the number to the engineering form
  half.py  -medicine elimination half-life explore
  ldiv.py  -demonstrate the software base binary long division
+ parts.py -dilution ratio calculators
  sol.py   -inductance of the solenoid coil
  sq.py    -fall as square of distance
  ssec.py  -series section transformer
