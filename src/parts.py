@@ -6,8 +6,7 @@
 
 def verr()  : print('ERROR: I need a real number.', end='\n\n')
 def nerr(n) :
-    if n == 0: op: string = '>'
-    else:      op: string = 'at least '
+    op: string = '>' if n == 1 else 'at least '
     print('ERROR: Has to be ', op, n, '.', sep='', end='\n\n')
 
 print('1 USGal = 128 ounce = 8 pints = 4 quart = 3.7854118 litere = 3785.4118 '
